@@ -33,6 +33,10 @@
                                  <i class="fas fa-house-user fa-lg"></i>  Accueil
                                 </a>
                             </li>
+                            <?php  
+                                if(session_status() === PHP_SESSION_NONE) session_start();
+                                if(isset($_SESSION['loginSuccess']) && ($_SESSION['role'] === "admin")) { 
+                            ?>
                             <hr>
                                 <h6>Services en ligne</h6>
                                 <li class="nav-item">
@@ -55,6 +59,7 @@
                                         <i class="fas fa-circle-check fa-lg"></i>  Retourner une voiture
                                     </a>
                                 </li>
+                                <?php } ?>
                             <hr>
                             <h6>Autres</h6>
                             <!-- Default dropend button -->
@@ -104,14 +109,23 @@
                             <li class="nav-item me-3 me-lg-3">
                                 <button class="nav-link text-dark position-relative" type="button" title="Consulter vos messages" id="liveToastBtn" href="#"><i class="fa-solid fa-envelope fa-lg"></i> 
                                     Messages
-                                    <span class="position-absolute top-0 start-0 p-2 bg-danger border border-light rounded-circle"></span>
+                                    <?php  
+                                        if(session_status() === PHP_SESSION_NONE) session_start();
+                                        if(isset($_SESSION['loginSuccess']) && isset($_SESSION['error'])) { 
+                                    ?>
+                                        <span class="position-absolute top-0 start-0 p-2 bg-danger border border-light rounded-circle"></span>} 
+                                    <?php } ?>
                                 </button>
+                                <?php  
+                                    if(session_status() === PHP_SESSION_NONE) session_start();
+                                    if(isset($_SESSION['loginSuccess']) && isset($_SESSION['error'])) { 
+                                ?>
                                 <div class="toast-container position-fixed bottom-0 end-0 p-3">
                                     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                                         <div class="toast-header">
                                         <i class="fas fa-bell fa-mx"></i>&nbsp;&nbsp;
                                             <strong class="me-auto">eLocation</strong>
-                                            <small>11 mins ago</small>
+                                            <!-- <small>11 mins ago</small> -->
                                             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                         </div>
                                         <div class="toast-body">
@@ -120,6 +134,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php } ?>
                                 <!-- Script pour activer le Toast -->
                                 <script>
                                     document.getElementById('liveToastBtn').addEventListener('click', function () {

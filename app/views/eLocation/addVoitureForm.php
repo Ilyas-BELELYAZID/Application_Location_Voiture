@@ -65,8 +65,8 @@
                             <input type="text" name="modele" placeholder="Entrer le modéle" class="form-control" maxlength="100" required>
                         </div><br>
                         <div class="form-group">
-                            <label for="immatriculation">Immatriculation</label>
-                            <input type="text" name="immatriculation" placeholder="12345-A-45" class="form-control" maxlength="10" required>
+                            <label for="nbVoitures">Nombres de Voitures</label>
+                            <input type="number" name="nbVoitures" placeholder="####" class="form-control" step="1" required>
                         </div><br>
                         <div class="form-group">
                             <label for="prixLoc">Prix Location</label>

@@ -58,15 +58,15 @@
                     <form action="index.php?controller=eLocation&action=updateVoiture" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="marque">Marque</label>
-                            <input type="text" name="marque" placeholder="Entrer la marque" class="form-control" maxlength="100">
+                            <input type="text" name="marque" placeholder="Entrer la marque" class="form-control" maxlength="100" required>
                         </div><br>
                         <div class="form-group">
                             <label for="modele">Modéle</label>
-                            <input type="text" name="modele" placeholder="Entrer le modéle" class="form-control" maxlength="100">
+                            <input type="text" name="modele" placeholder="Entrer le modéle" class="form-control" maxlength="100" required>
                         </div><br>
                         <div class="form-group">
-                            <label for="immatriculation">Immatriculation</label>
-                            <input type="text" name="immatriculation" value="" class="form-control" disabled style="cursor: not-allowed;">
+                            <label for="nbVoitures">Nombres de voitures</label>
+                            <input type="number" name="nbVoitures" placeholder="" class="form-control" step="1">
                         </div><br>
                         <div class="form-group">
                             <label for="prixLoc">Prix Location</label>
@@ -88,19 +88,9 @@
                             <input type="number" name="place" placeholder="" class="form-control" step="1">
                         </div><br>
                         <div class="form-group">
-                            <table class="w-100">
-                                <tr>
-                                    <td>
-                                        <label for="pht">Photo</label>
-                                        <input type="file" name="pht" class="form-control" accept="image/*">
-                                        <input type="hidden" name="MAX_FILE_SIZE" value="3145728">
-                                    </td>
-                                    <td class="text-center">
-                                        <img src="" width="120" height="120">
-                                        <input type="hidden" name="pht1">
-                                    </td>
-                                </tr>
-                            </table>
+                            <label for="pht">Photo</label>
+                            <input type="file" name="pht" class="form-control" accept="image/*">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="3145728">
                         </div><br>
                         <div class="form-group">
                             <input type="submit" name="update" value="Modifier" class="btn btn-warning text-light form-control">

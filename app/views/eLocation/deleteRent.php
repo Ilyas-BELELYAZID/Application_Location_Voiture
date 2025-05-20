@@ -32,12 +32,15 @@
 <div class="site-section bg-light">
       <div class="container">
         <div class="row">
+        <?php foreach ($res as $car) {
+                 foreach ($req as $user) { 
+                    if($car['idVoiture'] === $user['idVoiture']) { ?>
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="item-1">
-                <a href="#"><img src="uploads/imagesVoiture/img_1" alt="Image" class="img-fluid"></a>
+                <a href="#"><img src=<?php if(isset($car)) echo "uploads/imagesVoiture/" . $car['pht']; ?> alt="Image" class="img-fluid"></a>
                 <div class="item-1-contents">
                   <div class="text-center">
-                  <h3><a href="#">Range Rover S64 Coupe</a></h3>
+                  <h3><a href="#"><?php if(isset($car)) echo $car['marque'] . " " . $car['modele']; ?></a></h3>
                   <div class="rating">
                     <span class="icon-star text-warning"></span>
                     <span class="icon-star text-warning"></span>
@@ -45,258 +48,67 @@
                     <span class="icon-star text-warning"></span>
                     <span class="icon-star text-warning"></span>
                   </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
+                  <div class="rent-price"><span><?php if(isset($car)) echo $car['prixLocation']; ?>&nbsp;DH/</span>jour</div>
                   </div>
                   <ul class="specs">
                     <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
+                      <span>Portes</span>
+                      <span class="spec"><?php if(isset($car)) echo $car['nbPortes']; ?></span>
+                    </li>
+                    <li>
+                      <span>Place</span>
+                      <span class="spec"><?php if(isset($car)) echo $car['place']; ?></span>
                     </li>
                     <li>
                       <span>Transmission</span>
-                      <span class="spec">Automatic</span>
+                      <span class="spec">Automatique</span>
                     </li>
                     <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
+                      <span>Âge minimum</span>
+                      <span class="spec">18 ans</span>
                     </li>
                     <li>
+                    <?php foreach ($us as $users) {
+                            if($user['idUser'] === $users['idUser']) { ?>
                       <span>Louer Par</span>
-                      <span class="spec">18 years</span>
+                      <span class="spec"><?php if(isset($car)) echo $users['nom'] . " " . $users['prenom']; ?></span>
                     </li>
                     <li>
                       <span>CIN</span>
-                      <span class="spec">18 years</span>
+                      <span class="spec"><?php if(isset($car)) echo $users['CIN']; ?></span>
                     </li>
                     <li>
                       <span>Email</span>
-                      <span class="spec">18 years</span>
+                      <span class="spec"><?php if(isset($car)) echo $users['email']; ?></span>
                     </li>
+                    <?php } 
+                        }
+                    ?>
                     <li>
                       <span>De</span>
-                      <span class="spec">18 years</span>
+                      <span class="spec"><?php if(isset($car)) echo $car['date_retrait']; ?></span>
                     </li>
                     <li>
                       <span>à</span>
-                      <span class="spec">18 years</span>
+                      <span class="spec"><?php if(isset($car)) echo $car['date_depot']; ?></span>
                     </li>
                   </ul>
                   <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-warning">Retourner</a>
+                    <a href="index.php?controller=eLocation&action=acceuilForm" class="btn btn-warning">Retourner</a>
                   </div>
                 </div>
               </div>
           </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="item-1">
-                <a href="#"><img src="uploads/imagesVoiture/img_2" alt="Image" class="img-fluid"></a>
-                <div class="item-1-contents">
-                  <div class="text-center">
-                  <h3><a href="#">Range Rover S64 Coupe</a></h3>
-                  <div class="rating">
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                  </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
-                  </div>
-                  <ul class="specs">
-                    <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
-                    </li>
-                    <li>
-                      <span>Seats</span>
-                      <span class="spec">5</span>
-                    </li>
-                    <li>
-                      <span>Transmission</span>
-                      <span class="spec">Automatic</span>
-                    </li>
-                    <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
-                    </li>
-                  </ul>
-                  <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-warning">Rent Now</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="item-1">
-                <a href="#"><img src="uploads/imagesVoiture/img_3" alt="Image" class="img-fluid"></a>
-                <div class="item-1-contents">
-                  <div class="text-center">
-                  <h3><a href="#">Range Rover S64 Coupe</a></h3>
-                  <div class="rating">
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                  </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
-                  </div>
-                  <ul class="specs">
-                    <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
-                    </li>
-                    <li>
-                      <span>Seats</span>
-                      <span class="spec">5</span>
-                    </li>
-                    <li>
-                      <span>Transmission</span>
-                      <span class="spec">Automatic</span>
-                    </li>
-                    <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
-                    </li>
-                  </ul>
-                  <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-warning">Rent Now</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="item-1">
-                <a href="#"><img src="uploads/imagesVoiture/img_1" alt="Image" class="img-fluid"></a>
-                <div class="item-1-contents">
-                  <div class="text-center">
-                  <h3><a href="#">Range Rover S64 Coupe</a></h3>
-                  <div class="rating">
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                  </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
-                  </div>
-                  <ul class="specs">
-                    <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
-                    </li>
-                    <li>
-                      <span>Seats</span>
-                      <span class="spec">5</span>
-                    </li>
-                    <li>
-                      <span>Transmission</span>
-                      <span class="spec">Automatic</span>
-                    </li>
-                    <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
-                    </li>
-                  </ul>
-                  <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-warning">Rent Now</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="item-1">
-                <a href="#"><img src="uploads/imagesVoiture/img_2" alt="Image" class="img-fluid"></a>
-                <div class="item-1-contents">
-                  <div class="text-center">
-                  <h3><a href="#">Range Rover S64 Coupe</a></h3>
-                  <div class="rating">
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                  </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
-                  </div>
-                  <ul class="specs">
-                    <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
-                    </li>
-                    <li>
-                      <span>Seats</span>
-                      <span class="spec">5</span>
-                    </li>
-                    <li>
-                      <span>Transmission</span>
-                      <span class="spec">Automatic</span>
-                    </li>
-                    <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
-                    </li>
-                  </ul>
-                  <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-warning">Rent Now</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="item-1">
-                <a href="#"><img src="uploads/imagesVoiture/img_3" alt="Image" class="img-fluid"></a>
-                <div class="item-1-contents">
-                  <div class="text-center">
-                  <h3><a href="#">Range Rover S64 Coupe</a></h3>
-                  <div class="rating">
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                  </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
-                  </div>
-                  <ul class="specs">
-                    <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
-                    </li>
-                    <li>
-                      <span>Seats</span>
-                      <span class="spec">5</span>
-                    </li>
-                    <li>
-                      <span>Transmission</span>
-                      <span class="spec">Automatic</span>
-                    </li>
-                    <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
-                    </li>
-                  </ul>
-                  <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-warning">Rent Now</a>
-                  </div>
-                </div>
-              </div>
-          </div>
-
-
           <div class="col-12">
             <span class="p-3">1</span>
             <a href="#" class="p-3">2</a>
             <a href="#" class="p-3">3</a>
             <a href="#" class="p-3">4</a>
           </div>
+          <?php }
+            } 
+           } ?>
+
         </div>
       </div>
     </div>

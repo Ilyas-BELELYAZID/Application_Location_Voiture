@@ -60,7 +60,7 @@
             <!-- Navbar Offcanvas -->
             <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
               <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Location Menu</h5>
+                <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Location Menu</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div class="offcanvas-body">
@@ -68,12 +68,17 @@
                   <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="index.php?controller=eLocation&action=acceuilForm"><i class="fas fa-house-user fa-lg"></i> Accueil</a>
                   </li>
+                  <?php  
+                    if(session_status() === PHP_SESSION_NONE) session_start();
+                    if(isset($_SESSION['loginSuccess']) && ($_SESSION['role'] === "admin")) { 
+                  ?>
                   <hr>
                   <h6>Services en ligne</h6>
                   <li class="nav-item"><a class="nav-link" href="index.php?controller=eLocation&action=addVoitureForm"><i class="fas fa-car fa-lg"></i> Ajouter une voiture</a></li>
                   <li class="nav-item"><a class="nav-link" href="index.php?controller=eLocation&action=deleteForm"><i class="fas fa-rectangle-xmark fa-lg"></i> Supprimer une voiture</a></li>
                   <li class="nav-item"><a class="nav-link" href="index.php?controller=eLocation&action=updateVoitureForm"><i class="fas fa-address-card fa-lg"></i> Modifier une voiture</a></li>
                   <li class="nav-item"><a class="nav-link" href="index.php?controller=eLocation&action=deleteRentForm"><i class="fas fa-circle-check fa-lg"></i> Retourner une voiture</a></li>
+                  <?php } ?>
                   <hr>
                   <h6>Autres</h6>
                   <li class="nav-item dropend">
@@ -110,16 +115,25 @@
                   <li><a href="index.php?controller=eLocation&action=carsForm" class="nav-link text-white">Voitures</a></li>
                   <li class="active"><a href="index.php?controller=eLocation&action=contactForm" class="nav-link text-white">Contacte</a></li>
                   <li class="nav-item">
-                                <button class="nav-link text-white position-relative" type="button" title="Consulter vos messages" id="liveToastBtn" href="#"> 
+                  <button class="nav-link text-white position-relative" type="button" title="Consulter vos messages" id="liveToastBtn" href="#"> 
                                     Messages
-                                    <span class="position-absolute top-0 start-0 p-2 bg-danger border border-light rounded-circle"></span>
+                                    <?php  
+                                        if(session_status() === PHP_SESSION_NONE) session_start();
+                                        if(isset($_SESSION['loginSuccess']) && isset($_SESSION['error'])) { 
+                                    ?>
+                                        <span class="position-absolute top-0 start-0 p-2 bg-danger border border-light rounded-circle"></span>} 
+                                    <?php } ?>
                                 </button>
+                                <?php  
+                                    if(session_status() === PHP_SESSION_NONE) session_start();
+                                    if(isset($_SESSION['loginSuccess']) && isset($_SESSION['error'])) { 
+                                ?>
                                 <div class="toast-container position-fixed bottom-0 end-0 p-3">
                                     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                                         <div class="toast-header">
                                         <i class="fas fa-bell fa-mx"></i>&nbsp;&nbsp;
                                             <strong class="me-auto">eLocation</strong>
-                                            <small>11 mins ago</small>
+                                            <!-- <small>11 mins ago</small> -->
                                             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                                         </div>
                                         <div class="toast-body">
@@ -128,6 +142,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php } ?>
                                 <!-- Script pour activer le Toast -->
                                 <script>
                                     const toastTrigger = document.getElementById('liveToastBtn')
@@ -195,8 +210,8 @@
                   </li>
                 </ul>
                 <div class="d-flex align-items-center bg-light p-3 position-relative">
-                  <span>$150/jour</span>
-                  <a href="contact.html" class="ml-auto btn btn-primary position-absolute top-50 end-0 translate-middle-y">Louer Maintenant</a>
+                  <span>1500 DH/jour</span>
+                  <a href="#a" class="ml-auto btn btn-primary position-absolute top-50 end-0 translate-middle-y">Louer Maintenant</a>
                 </div>
               </div>
             </div>
@@ -274,11 +289,12 @@
           </div>
           <div class="col-lg-8">
             <div class="nonloop-block-13 owl-carousel">
-              <div class="item-1">
-                <a href="#"><img src="uploads/imagesVoiture/img_1" alt="Image" class="img-fluid"></a>
+            <?php foreach ($res as $car) { ?>
+              <div class="item-1" id="a">
+                <a href="#"><img src=<?php if(isset($car)) echo "uploads/imagesVoiture/" . $car['pht']; ?> alt="Image" class="img-fluid"></a>
                 <div class="item-1-contents">
                   <div class="text-center">
-                  <h3><a href="#">Range Rover S64 Coupe</a></h3>
+                  <h3><a href="#"><?php if(isset($car)) echo $car['marque'] . " " . $car['modele']; ?></a></h3>
                   <div class="rating">
                     <span class="icon-star text-warning"></span>
                     <span class="icon-star text-warning"></span>
@@ -286,71 +302,32 @@
                     <span class="icon-star text-warning"></span>
                     <span class="icon-star text-warning"></span>
                   </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
+                  <div class="rent-price"><span><?php if(isset($car)) echo $car['prixLocation']; ?>&nbsp;DH/</span>Jour</div>
                   </div>
                   <ul class="specs">
                     <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
+                      <span>Portes</span>
+                      <span class="spec"><?php if(isset($car)) echo $car['nbPortes']; ?></span>
                     </li>
                     <li>
-                      <span>Seats</span>
-                      <span class="spec">5</span>
+                      <span>Place</span>
+                      <span class="spec"><?php if(isset($car)) echo $car['place']; ?></span>
                     </li>
                     <li>
                       <span>Transmission</span>
                       <span class="spec">Automatic</span>
                     </li>
                     <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
+                      <span>Âge minimum</span>
+                      <span class="spec">18 ans</span>
                     </li>
                   </ul>
                   <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-primary">Rent Now</a>
+                    <a href="#" class="btn btn-primary">Louer Maintenat</a>
                   </div>
                 </div>
               </div>
-
-
-              <div class="item-1">
-                <a href="#"><img src="uploads/imagesVoiture/img_2" alt="Image" class="img-fluid"></a>
-                <div class="item-1-contents">
-                  <div class="text-center">
-                  <h3><a href="#">Range Rover S64 Coupe</a></h3>
-                  <div class="rating">
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                  </div>
-                  <div class="rent-price"><span>$250/</span>day</div>
-                  </div>
-                  <ul class="specs">
-                    <li>
-                      <span>Doors</span>
-                      <span class="spec">4</span>
-                    </li>
-                    <li>
-                      <span>Seats</span>
-                      <span class="spec">5</span>
-                    </li>
-                    <li>
-                      <span>Transmission</span>
-                      <span class="spec">Automatic</span>
-                    </li>
-                    <li>
-                      <span>Minium age</span>
-                      <span class="spec">18 years</span>
-                    </li>
-                  </ul>
-                  <div class="d-flex action">
-                    <a href="contact.html" class="btn btn-primary">Rent Now</a>
-                  </div>
-                </div>
-              </div>
-
+              <?php } ?>
             </div>
             
           </div>

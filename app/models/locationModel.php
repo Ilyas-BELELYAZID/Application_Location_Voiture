@@ -20,21 +20,21 @@ class locationModel{
         return $req->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getByImmatriculation($immatriculation) {
-        $req = $this->pdo->prepare("SELECT * FROM location WHERE immatriculation = ?");
-        $req->execute([$immatriculation]);
-        return $req->fetch(PDO::FETCH_ASSOC);
+    public function getByIdVoiture($idVoiture) {
+        $req = $this->pdo->prepare("SELECT * FROM location WHERE idVoiture = ?");
+        $req->execute([$idVoiture]);
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getByIdUser($id) {
         $req = $this->pdo->prepare("SELECT * FROM location WHERE idUser = ?");
         $req->execute([$id]);
-        return $req->fetch(PDO::FETCH_ASSOC);
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function addLocation($immatriculation, $idUser, $nbJours, $dateRetrait, $dateDepot, $adresseRetrait, $adresseDepot) {
-        $req = $this->pdo->prepare(query: 'INSERT INTO location (immatriculation, idUser, nbJours, date_retrait, date_depot, adresse_retrait, adresse_depot) VALUES (?, ?, ?, ?, ?, ?, ?)');
-        $params = array($immatriculation, $idUser, $nbJours, $dateRetrait, $dateDepot, $adresseRetrait, $adresseDepot);
+    public function addLocation($idVoiture, $idUser, $dateRetrait, $dateDepot, $adresseRetrait, $adresseDepot) {
+        $req = $this->pdo->prepare(query: 'INSERT INTO location (idVoiture, idUser, date_retrait, date_depot, adresse_retrait, adresse_depot) VALUES (?, ?, ?, ?, ?, ?)');
+        $params = array($idVoiture, $idUser, $dateRetrait, $dateDepot, $adresseRetrait, $adresseDepot);
         return $req->execute(params);
     }
 

@@ -22,8 +22,11 @@ class autresController extends Controller {
     public function profileForm() {
         if(session_status() === PHP_SESSION_NONE) session_start();
         if(isset($_SESSION['loginSuccess'])) {
+            $id = $_SESSION['loginSuccess'];
+            $locationModel = $this->model("locationModel");
+            $res = $locationModel->getByIdUser($id);
             $profile = $this->profile();
-            $this->view("Autres/profileForm", ['email' => $profile['email'], 'nom' => $profile['nom'], 'prenom' => $profile['prenom'], 'role' => $profile['role'], 'cin' => $profile['CIN'], 'pht' => $profile['pht']]);
+            $this->view("Autres/profileForm", ['res' => $res, 'email' => $profile['email'], 'nom' => $profile['nom'], 'prenom' => $profile['prenom'], 'role' => $profile['role'], 'cin' => $profile['CIN'], 'pht' => $profile['pht']]);
         }
         else $this->view("auth/formLogin");
     }

@@ -34,7 +34,17 @@ class authController extends Controller {
             if ($user) {
                 if(session_status() === PHP_SESSION_NONE) session_start();
                 $_SESSION['loginSuccess'] = $user['idUser'];
-                header("Location: index.php?controller=auth&action=changePassword");
+
+                $locationModel = $this->model("locationModel");
+                $res = $locationModel->getByIdUser($_SESSION['loginSuccess']);
+                foreach($res as $req) {
+                    if ($req['date_depot'] > date('Y-m-d')) {
+                        $_SESSION['error'] = "Retourner";
+                    }
+                }
+                
+                $_SESSION['role'] = $user['role'];
+                header("Location: index.php?controller=eLocation&action=acceuilForm");
                 exit();
             } else {
                 $this->view("auth/formLogin", ['error' => "Votre Email et/ou mot de passe n'est pas correct"]);
