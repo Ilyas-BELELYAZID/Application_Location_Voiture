@@ -1,0 +1,55 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    background-color: darkblue;
+}
+a {
+    text-decoration: none;
+}
+#abc {
+    margin: 65px;
+    padding: 5px;
+    border-radius: 40px;
+    background-color: aliceblue;
+}
+#abcd {
+    padding: 70px;
+    background-color: aqua;
+    border-radius: 40px;
+}
+#abcde{
+    background-image: url(img/IMG-20250228-WA0027-removebg-preview.png);
+    background-size: 300px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin: 20px;
+}
+input[type = "submit"] {
+    color: white;
+    background-color: darkblue;
+    border-radius: 20px;
+    transition: 0.5ms;
+}
+input[type = "submit"]:hover {
+    background-color: blue;
+    box-shadow: 2px 2px 16px 8px orchid;
+}
+input[type="text"] {
+    border-radius: 20px;
+}
+input[type="email"] {
+    border-radius: 20px;
+}
+input[type="password"] {
+    border-radius: 20px;
+}
+
+.form-control.is-valid {
+    border-color: #198754;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}

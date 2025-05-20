@@ -1,0 +1,37 @@
+body {
+    background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #3931af
+}
+
+.profile-button {
+    background: #0099ff;
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #0062cc
+}
+
+.profile-button:focus {
+    background: #0062cc;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #0062cc;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #0062cc;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
