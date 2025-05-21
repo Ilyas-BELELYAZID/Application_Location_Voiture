@@ -113,7 +113,7 @@
                                         if(session_status() === PHP_SESSION_NONE) session_start();
                                         if(isset($_SESSION['loginSuccess']) && isset($_SESSION['error'])) { 
                                     ?>
-                                        <span class="position-absolute top-0 start-0 p-2 bg-danger border border-light rounded-circle"></span>} 
+                                        <span class="position-absolute top-0 start-0 p-2 bg-danger border border-light rounded-circle"></span>
                                     <?php } ?>
                                 </button>
                                 <?php  

@@ -25,6 +25,17 @@ class eLocationController extends Controller {
         else $this->view("auth/formLogin");
     }
 
+    public function acceuil2Form() {
+        if(session_status() === PHP_SESSION_NONE) session_start();
+        if(isset($_SESSION['loginSuccess'])) {
+            $idVoiture = $_GET['voiture'] ?? 0;
+            $voitureModel = $this->model("voitureModel");
+            $res = $voitureModel->getAll();
+            $this->view("eLocation/index1Form", ['res' => $res, 'idVoiture' => $idVoiture]);
+        }
+        else $this->view("auth/formLogin");
+    }
+
     public function servicesForm() {
         if(session_status() === PHP_SESSION_NONE) session_start();
         if(isset($_SESSION['loginSuccess'])) $this->view("eLocation/servicesForm");
@@ -63,10 +74,11 @@ class eLocationController extends Controller {
             $userModel = $this->model("userModel");
             $voitureModel = $this->model("voitureModel");
             $locationModel = $this->model("locationModel");
-            $us = $voitureModel->getAll();
+            $us = $userModel->getAll();
             $res = $voitureModel->getAll();
             $req = $locationModel->getAll();
-            $this->view("eLocation/deleteRent", ['res' => $res, 'req' => $req, 'us' => $us]);
+            global $erreur, $success;
+            $this->view("eLocation/deleteRent", ['error' => $erreur, 'success' => $success, 'res' => $res, 'req' => $req, 'us' => $us]);
         }
         else $this->view("auth/formLogin");
     }
@@ -144,7 +156,31 @@ class eLocationController extends Controller {
     }
 
     public function deleteRent() {
-        
+        if(session_status() === PHP_SESSION_NONE) session_start();
+        if(isset($_SESSION['loginSuccess']) && isset($_SESSION['idUser']) && isset($_SESSION['idVoiture'])) {
+            $idUser = $_SESSION['idUser'];
+            $idVoiture = $_SESSION['idVoiture'];
+
+            $locationModel = $this->model("locationModel");
+            $voitureModel = $this->model("voitureModel");
+            $res = $voitureModel->getById($idVoiture);
+            $nbVoitures = $res['nbVoitures'];
+
+            $valid = $locationModel->updateLocation($idVoiture, $idUser);
+            $valid1 = $voitureModel->updateVoiture($idVoiture, null, null, null, null, null, null, null, $nbVoitures+1);
+            
+            global $erreur, $success;
+            if($valid && $valid1) {
+                $erreur = null;
+                $success= "La voiture a été retourner avec success !!";
+            }
+            else {
+                $erreur = "Il y a eu une erreur lors de retourner cette voiture!!";
+                $success= null;
+            }
+            $this->deleteRentForm();
+        }
+        else $this->view("eLocation/deleteRent");
     }
 
     public function deleteVoiture() {
@@ -166,8 +202,30 @@ class eLocationController extends Controller {
 
     public function index() {
         if(session_status() === PHP_SESSION_NONE) session_start();
-        if(isset($_SESSION['loginSuccess'])) {
-            
+        if(isset($_SESSION['loginSuccess']) && isset($_POST['louer'])) {
+            $adresseRetrait = $_POST['adresseRetrait'];
+            $adresseDepot = $_POST['adresseDepot'];
+            $dateRetrait = $_POST['dateRetrait'];
+            $dateDepot = $_POST['dateDepot'];
+            $id = $_SESSION['loginSuccess'];
+            $idVoiture = $_GET['voiture'];
+
+            $locationModel = $this->model("locationModel");
+
+            if(isset($idVoiture) && isset($adresseRetrait) && isset($adresseDepot) && isset($dateRetrait) && isset($dateDepot)) {
+                $voitureModel = $this->model("voitureModel");
+                $res = $voitureModel->getAll();
+                $res1 = $voitureModel->getById($idVoiture);
+                $valid = $locationModel->addLocation($idVoiture, $id, $dateRetrait, $dateDepot, $adresseRetrait, $adresseDepot);
+                if($valid) {
+                    $nbVoitures = $res1['nbVoitures'];
+                    $voitureModel->updateVoiture($idVoiture, null, null, null, null, null, null, null, $nbVoitures-1);
+                    $this->view("eLocation/indexForm", ['success' => "Vous avez louer la voiture avec success", 'res' => $res]);
+                }
+                else {
+                    $this->view("eLocation/indexForm", ['error' => "Il y a eu une erreur lors de louer la voiture!!", 'res' => $res]);
+                }
+            }
         }
         else $this->view("eLocation/indexForm");
     }

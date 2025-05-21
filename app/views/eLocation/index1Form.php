@@ -2,7 +2,7 @@
 <html lang="fr">
 
   <head>
-    <title>eLocation &mdash; Voitures</title>
+    <title>eLocation &mdash; Page Principal</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -21,16 +21,16 @@
     <link rel="stylesheet" href="static/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="static/css/aos.css">
 
-    <link rel="stylesheet" href="static/fonts/flaticon/font/flaticon.css">
     <link rel="stylesheet" href="static/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="static/fonts/flaticon/font/flaticon.css">
 
     <link rel="stylesheet" href="../app/views/eLocation/css/style1.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   </head>
 
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-
-    
     <div class="site-wrap" id="home-section">
 
       <div class="site-mobile-menu site-navbar-target">
@@ -43,8 +43,9 @@
       </div>
 
 
+
       <header class="" role="banner">
-      <nav class="navbar navbar-dark bg-dark sticky-top">
+        <nav class="navbar navbar-dark bg-dark sticky-top">
           <div class="container-fluid">
             <!-- Bouton Toggler -->
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -178,77 +179,133 @@
       </header>
 
     <div class="ftco-blocks-cover-1">
-      <div class="ftco-cover-1 overlay innerpage" style="background-image: url('uploads/imagesVoiture/hero_2')">
+      <div class="ftco-cover-1 overlay" style="background-image: url('uploads/imagesVoiture/hero_1')">
         <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-lg-6 text-center">
-              <h1>Nos voitures à louer</h1>
+          <div class="row align-items-center">
+            <div class="col-lg-5">
+              <div class="feature-car-rent-box-1">
+                <h3>Range Rover S7</h3>
+                <ul class="list-unstyled">
+                  <li>
+                    <span>Portes</span>
+                    <span class="spec">4</span>
+                  </li>
+                  <li>
+                    <span>Place</span>
+                    <span class="spec">6</span>
+                  </li>
+                  <li>
+                    <span>Bagage</span>
+                    <span class="spec">2 Valises/2 Sacs</span>
+                  </li>
+                  <li>
+                    <span>Transmission</span>
+                    <span class="spec">Automatique</span>
+                  </li>
+                  <li>
+                    <span>Âge minimum</span>
+                    <span class="spec">18 ans</span>
+                  </li>
+                </ul>
+                <div class="d-flex align-items-center bg-light p-3 position-relative">
+                  <span>1500 DH/jour</span>
+                  <a href="#form" class="ml-auto btn btn-primary position-absolute top-50 end-0 translate-middle-y">Louer Maintenant</a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="site-section bg-light">
+    <div class="site-section pt-0 pb-0 bg-light">
       <div class="container">
         <div class="row">
-          <?php foreach ($res as $car) { 
-                  if($car['nbVoitures'] > "0") {
-          ?>
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="item-1">
-                <a href="#"><img src=<?php if(isset($car)) echo "uploads/imagesVoiture/" . $car['pht']; ?> alt="Image" class="img-fluid"></a>
-                <div class="item-1-contents">
-                  <div class="text-center">
-                  <h3><a href="#"><?php if(isset($car)) echo $car['marque'] . " " . $car['modele']; ?></a></h3>
-                  <div class="rating">
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
-                    <span class="icon-star text-warning"></span>
+          <div class="col-12">
+            
+              <form class="trip-form" id="form" action=<?php echo "index.php?controller=eLocation&action=index&voiture=" . $idVoiture; ?> method="POST">
+                <div class="row align-items-center mb-4">
+                  <div class="col-md-6">
+                    <h3 class="m-0">Commencez votre voyage ici</h3>
                   </div>
-                  <div class="rent-price"><span><?php if(isset($car)) echo $car['prixLocation']; ?>&nbsp;DH/</span>jour</div>
-                  </div>
-                  <ul class="specs">
-                    <li>
-                      <span>Portes</span>
-                      <span class="spec"><?php if(isset($car)) echo $car['nbPortes']; ?></span>
-                    </li>
-                    <li>
-                      <span>Place</span>
-                      <span class="spec"><?php if(isset($car)) echo $car['place']; ?></span>
-                    </li>
-                    <li>
-                      <span>Transmission</span>
-                      <span class="spec">Automatique</span>
-                    </li>
-                    <li>
-                      <span>Âge minimum</span>
-                      <span class="spec">18 ans</span>
-                    </li>
-                  </ul>
-                  <div class="d-flex action">
-                    <a href="index.php?controller=eLocation&action=acceuilForm" class="btn btn-primary">Louer Maintenant</a>
+                  <div class="col-md-6 text-md-right position-relative">
+                    <div class="position-absolute top-50 end-0 translate-middle-y">
+                      <span class="text-primary"><?php if($res) {echo count($res);} else {echo "0";} ?></span> <span>voitures disponibles</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-          </div>
-          <div class="col-12">
-            <span class="p-3">1</span>
-            <a href="#" class="p-3">2</a>
-            <a href="#" class="p-3">3</a>
-            <a href="#" class="p-3">4</a>
-          </div>
-          <?php 
-            }
-          } 
-          ?>
+                <div class="row">
+                  <div class="form-group col-md-3">
+                    <label for="cf-1">Où viens-tu</label>
+                    <input type="text" id="cf-1" name="adresseRetrait" placeholder="Votre adresse de retrait" class="form-control" required>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="cf-2">Où vous allez</label>
+                    <input type="text" id="cf-2" name="adresseDepot" placeholder="Votre adresse de dépôt" class="form-control" required>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="cf-3">Date du voyage</label>
+                    <input type="text" id="cf-3" name="dateRetrait" placeholder="Votre date de retrait" class="form-control datepicker px-3" required>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label for="cf-4">Date de retour</label>
+                    <input type="text" id="cf-4" name="dateDepot" placeholder="Votre date de voyage" class="form-control datepicker px-3" required>
+                  </div>
+                </div><br>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <input type="submit" name="louer" value="Soumettre" class="btn btn-primary">
+                  </div>
+                </div> 
+              </form>
+            </div>
+        </div>
+      </div><br><br><br>
+    </div>
 
-          
+    
+    <div class="site-section section-3" style="background-image: url('uploads/imagesVoiture/hero_2');">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-5">
+            <h2 class="text-white">Nos services</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="service-1">
+              <span class="service-1-icon">
+                <span class="flaticon-car-1"></span>
+              </span>
+              <div class="service-1-contents">
+                <h3 class="text-white">Réparation</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="service-1">
+              <span class="service-1-icon">
+                <span class="flaticon-traffic"></span>
+              </span>
+              <div class="service-1-contents">
+                <h3 class="text-white">Accessoires de voiture</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="service-1">
+              <span class="service-1-icon">
+                <span class="flaticon-valet"></span>
+              </span>
+              <div class="service-1-contents">
+                <h3 class="text-white">Posséder une voiture</h3>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
 
     <div class="container site-section mb-5">
       <div class="row justify-content-center text-center">
@@ -279,6 +336,52 @@
           <span class="caption">Tout à Fait</span>
         </div>
 
+      </div>
+    </div>
+    
+    
+    <div class="site-section bg-light">
+      <div class="container">
+        <div class="row justify-content-center text-center mb-5">
+          <div class="col-7 text-center mb-5">
+            <h2>Témoignage client</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="testimonial-2">
+              <blockquote class="mb-4">
+                <p>"Franchement, l'application est super intuitive ! J'ai pu réserver une voiture en moins de 5 minutes. Tout était clair, rapide et sécurisé. Je recommande vivement pour ceux qui cherchent à louer sans prise de tête."</p>
+              </blockquote>
+              <div class="d-flex v-card align-items-center">
+                <img src="uploads/imagesProfile/person_1" alt="Image" class="img-fluid mr-3">
+                <span>&nbsp;&nbsp;Youssef B. – Rabat</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="testimonial-2">
+              <blockquote class="mb-4">
+                <p>"Service client très réactif, voitures en bon état et prix compétitifs. J'avais un doute au début, mais dès ma première location, j'ai été convaincu. Bravo à toute l'équipe !"</p>
+              </blockquote>
+              <div class="d-flex v-card align-items-center">
+                <img src="uploads/imagesProfile/person_2" alt="Image" class="img-fluid mr-3">
+                <span>&nbsp;&nbsp;Fatima E. – Casablanca</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <div class="testimonial-2">
+              <blockquote class="mb-4">
+                <p>"L'expérience utilisateur est fluide, même pour une première fois. La recherche par modèle ou marque est pratique, et j'ai beaucoup aimé le système de retour de véhicule via l'application."</p>
+              </blockquote>
+              <div class="d-flex v-card align-items-center">
+                <img src="uploads/imagesProfile/person_3" alt="Image" class="img-fluid mr-3">
+                <span>&nbsp;&nbsp;Nadia K. – Tanger</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

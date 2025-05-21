@@ -38,7 +38,7 @@ class authController extends Controller {
                 $locationModel = $this->model("locationModel");
                 $res = $locationModel->getByIdUser($_SESSION['loginSuccess']);
                 foreach($res as $req) {
-                    if ($req['date_depot'] > date('Y-m-d')) {
+                    if ((date('Y-m-d') > $req['date_depot']) && $req['louer'] != "0") {
                         $_SESSION['error'] = "Retourner";
                     }
                 }

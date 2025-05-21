@@ -8,6 +8,12 @@ class userModel{
         $this->pdo = $pdo;
     }
 
+    public function getAll() {
+        $req = $this->pdo->prepare('SELECT * FROM users');
+        $req->execute();
+        return $req->fetchAll();
+    }
+
     public function getByID($id) {
         $req = $this->pdo->prepare('SELECT * FROM users WHERE idUser = ?');
         $params = array($id);

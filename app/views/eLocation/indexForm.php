@@ -31,8 +31,6 @@
   </head>
 
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
-
-    
     <div class="site-wrap" id="home-section">
 
       <div class="site-mobile-menu site-navbar-target">
@@ -121,7 +119,7 @@
                                         if(session_status() === PHP_SESSION_NONE) session_start();
                                         if(isset($_SESSION['loginSuccess']) && isset($_SESSION['error'])) { 
                                     ?>
-                                        <span class="position-absolute top-0 start-0 p-2 bg-danger border border-light rounded-circle"></span>} 
+                                        <span class="position-absolute top-0 start-0 p-2 bg-danger border border-light rounded-circle"></span>
                                     <?php } ?>
                                 </button>
                                 <?php  
@@ -181,6 +179,53 @@
       </header>
 
     <div class="ftco-blocks-cover-1">
+    <?php 
+    if (!empty($error)) { 
+  ?>
+    <div class="container-fluid site-section bg-light">
+    <div class="row">
+    <div class="col-3"></div>
+        <div class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="exclamation-triangle-fill" viewBox="0 0 12 12">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </symbol>
+            </svg>
+            <h4 class="alert-heading">Oooops!</h4>
+            <p class="mb-0" style="margin-left: 5%;"><?php echo $error; ?></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    </div>
+  </div>
+    <?php
+            unset($error); 
+        } 
+    ?>
+    <?php 
+        if (!empty($success)) { 
+    ?>
+    <div class="container-fluid site-section bg-light">
+    <div class="row">
+    <div class="col-3"></div>
+        <div class="alert alert-success alert-dismissible fade show w-50" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </symbol>
+            </svg>
+            <h4 class="alert-heading">Félicitations!</h4>
+            <p class="mb-0" style="margin-left: 5%;"><?php echo $success; ?></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    </div>
+  </div>
+    <?php
+            unset($success); 
+        } 
+    ?>
+
       <div class="ftco-cover-1 overlay" style="background-image: url('uploads/imagesVoiture/hero_1')">
         <div class="container">
           <div class="row align-items-center">
@@ -220,53 +265,6 @@
       </div>
     </div>
 
-    <div class="site-section pt-0 pb-0 bg-light">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            
-              <form class="trip-form">
-                <div class="row align-items-center mb-4">
-                  <div class="col-md-6">
-                    <h3 class="m-0">Commencez votre voyage ici</h3>
-                  </div>
-                  <div class="col-md-6 text-md-right position-relative">
-                    <div class="position-absolute top-50 end-0 translate-middle-y">
-                      <span class="text-primary">32</span> <span>voitures disponibles</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="form-group col-md-3">
-                    <label for="cf-1">Où viens-tu</label>
-                    <input type="text" id="cf-1" placeholder="Votre adresse de retrait" class="form-control">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="cf-2">Où vous allez</label>
-                    <input type="text" id="cf-2" placeholder="Votre adresse de dépôt" class="form-control">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="cf-3">Date du voyage</label>
-                    <input type="text" id="cf-3" placeholder="Votre date de retrait" class="form-control datepicker px-3">
-                  </div>
-                  <div class="form-group col-md-3">
-                    <label for="cf-4">Date de retour</label>
-                    <input type="text" id="cf-4" placeholder="Votre date de voyage" class="form-control datepicker px-3">
-                  </div>
-                </div><br>
-                <div class="row">
-                  <div class="col-lg-6">
-                    <input type="submit" value="Soumettre" class="btn btn-primary">
-                  </div>
-                </div>
-              </form>
-            </div>
-        </div>
-      </div>
-    </div>
-
-    
-
     <div class="site-section bg-light">
       <div class="container">
         <div class="row">
@@ -289,7 +287,9 @@
           </div>
           <div class="col-lg-8">
             <div class="nonloop-block-13 owl-carousel">
-            <?php foreach ($res as $car) { ?>
+            <?php foreach ($res as $car) { 
+                    if($car['nbVoitures'] > "0") {
+            ?>
               <div class="item-1" id="a">
                 <a href="#"><img src=<?php if(isset($car)) echo "uploads/imagesVoiture/" . $car['pht']; ?> alt="Image" class="img-fluid"></a>
                 <div class="item-1-contents">
@@ -323,11 +323,17 @@
                     </li>
                   </ul>
                   <div class="d-flex action">
-                    <a href="#" class="btn btn-primary">Louer Maintenat</a>
+                    <form action=<?php echo "index.php?controller=eLocation&action=acceuil2Form&voiture=" . $car['idVoiture']; ?> method="POST">
+                      <input type="submit" name="louer" value="Louer Maintenat" class="btn btn-primary">
+                    </form>
+                    <!-- <a href="#" class="btn btn-primary">Louer Maintenat</a> -->
                   </div>
                 </div>
               </div>
-              <?php } ?>
+              <?php 
+                  }
+                } 
+              ?>
             </div>
             
           </div>

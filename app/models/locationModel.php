@@ -35,12 +35,12 @@ class locationModel{
     public function addLocation($idVoiture, $idUser, $dateRetrait, $dateDepot, $adresseRetrait, $adresseDepot) {
         $req = $this->pdo->prepare(query: 'INSERT INTO location (idVoiture, idUser, date_retrait, date_depot, adresse_retrait, adresse_depot) VALUES (?, ?, ?, ?, ?, ?)');
         $params = array($idVoiture, $idUser, $dateRetrait, $dateDepot, $adresseRetrait, $adresseDepot);
-        return $req->execute(params);
+        return $req->execute($params);
     }
 
-    public function updateLocation($id) {
-        $req = $this->pdo->prepare("UPDATE location SET louer = '0' WHERE idLoc = ?");
-        return $req->execute([$id]);
+    public function updateLocation($idVoiture, $idUser) {
+        $req = $this->pdo->prepare("UPDATE location SET louer = '0' WHERE idVoiture = ? and idUser = ?");
+        return $req->execute([$idVoiture, $idUser]);
     }
 }
 ?>

@@ -30,11 +30,58 @@
 ?>
 <body>
 <div class="site-section bg-light">
+<?php 
+    if (!empty($error)) { 
+  ?>
+    <div class="container-fluid site-section bg-light">
+    <div class="row">
+    <div class="col-3"></div>
+        <div class="alert alert-danger alert-dismissible fade show w-50" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="exclamation-triangle-fill" viewBox="0 0 12 12">
+                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                </symbol>
+            </svg>
+            <h4 class="alert-heading">Oooops!</h4>
+            <p class="mb-0" style="margin-left: 5%;"><?php echo $error; ?></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    </div>
+  </div>
+    <?php
+            unset($error); 
+        } 
+    ?>
+    <?php 
+        if (!empty($success)) { 
+    ?>
+    <div class="container-fluid site-section bg-light">
+    <div class="row">
+    <div class="col-3"></div>
+        <div class="alert alert-success alert-dismissible fade show w-50" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+                <symbol id="check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </symbol>
+            </svg>
+            <h4 class="alert-heading">Félicitations!</h4>
+            <p class="mb-0" style="margin-left: 5%;"><?php echo $success; ?></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    </div>
+  </div>
+    <?php
+            unset($success); 
+        } 
+    ?>
       <div class="container">
         <div class="row">
-        <?php foreach ($res as $car) {
-                 foreach ($req as $user) { 
-                    if($car['idVoiture'] === $user['idVoiture']) { ?>
+        <?php foreach ($req as $user) {
+                 foreach ($res as $car) {
+                    foreach ($us as $users) { 
+                        if(($car['idVoiture'] === $user['idVoiture']) && ($users['idUser'] === $user['idUser']) && ($user['louer']) != "0") { ?>
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="item-1">
                 <a href="#"><img src=<?php if(isset($car)) echo "uploads/imagesVoiture/" . $car['pht']; ?> alt="Image" class="img-fluid"></a>
@@ -68,47 +115,49 @@
                       <span class="spec">18 ans</span>
                     </li>
                     <li>
-                    <?php foreach ($us as $users) {
-                            if($user['idUser'] === $users['idUser']) { ?>
                       <span>Louer Par</span>
-                      <span class="spec"><?php if(isset($car)) echo $users['nom'] . " " . $users['prenom']; ?></span>
+                      <span class="spec"><?php if(isset($users)) echo $users['nom'] . " " . $users['prenom']; ?></span>
                     </li>
                     <li>
                       <span>CIN</span>
-                      <span class="spec"><?php if(isset($car)) echo $users['CIN']; ?></span>
+                      <span class="spec"><?php if(isset($users)) echo $users['CIN']; ?></span>
                     </li>
                     <li>
                       <span>Email</span>
-                      <span class="spec"><?php if(isset($car)) echo $users['email']; ?></span>
+                      <span class="spec"><?php if(isset($users)) echo $users['email']; ?></span>
                     </li>
-                    <?php } 
-                        }
-                    ?>
                     <li>
                       <span>De</span>
-                      <span class="spec"><?php if(isset($car)) echo $car['date_retrait']; ?></span>
+                      <span class="spec"><?php if(isset($user)) echo $user['date_retrait']; ?></span>
                     </li>
                     <li>
                       <span>à</span>
-                      <span class="spec"><?php if(isset($car)) echo $car['date_depot']; ?></span>
+                      <span class="spec"><?php if(isset($user)) echo $user['date_depot']; ?></span>
                     </li>
                   </ul>
+                  <?php 
+                    if(session_status() === PHP_SESSION_NONE) session_start(); 
+                    if(isset($_SESSION['loginSuccess'])){
+                        $_SESSION['idUser'] = $users['idUser'];
+                        $_SESSION['idVoiture'] = $car['idVoiture'];
+                    }
+                  ?>
                   <div class="d-flex action">
-                    <a href="index.php?controller=eLocation&action=acceuilForm" class="btn btn-warning">Retourner</a>
+                    <a href="index.php?controller=eLocation&action=deleteRent" class="btn btn-warning" onclick="return confirm('Voulez-vous retourner cette voiture?');">Retourner</a>
                   </div>
                 </div>
               </div>
           </div>
-          <div class="col-12">
+          <?php }
+            }
+            } 
+           } ?>
+        <div class="col-12">
             <span class="p-3">1</span>
             <a href="#" class="p-3">2</a>
             <a href="#" class="p-3">3</a>
             <a href="#" class="p-3">4</a>
           </div>
-          <?php }
-            } 
-           } ?>
-
         </div>
       </div>
     </div>
