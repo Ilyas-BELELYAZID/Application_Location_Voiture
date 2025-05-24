@@ -44,7 +44,8 @@ class authController extends Controller {
                 }
                 
                 $_SESSION['role'] = $user['role'];
-                header("Location: index.php?controller=eLocation&action=acceuilForm");
+                if($_SESSION['role'] == "admin") header("Location: index.php?controller=eLocation&action=addVoitureForm");
+                else header("Location: index.php?controller=eLocation&action=acceuilForm");
                 exit();
             } else {
                 $this->view("auth/formLogin", ['error' => "Votre Email et/ou mot de passe n'est pas correct"]);

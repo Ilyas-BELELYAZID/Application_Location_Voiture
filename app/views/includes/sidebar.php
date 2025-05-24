@@ -27,12 +27,17 @@
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav navbar-expand-lg justify-content-start flex-grow-1 pe-1">
+                            <?php  
+                                if(session_status() === PHP_SESSION_NONE) session_start();
+                                if(isset($_SESSION['loginSuccess']) && ($_SESSION['role'] === "client")) { 
+                            ?>
                             <hr>
                             <li class="nav-item me-3 me-lg-3">
                                 <a class="nav-link active" aria-current="page" href="index.php?controller=eLocation&action=acceuilForm">
                                  <i class="fas fa-house-user fa-lg"></i>  Accueil
                                 </a>
                             </li>
+                            <?php } ?>
                             <?php  
                                 if(session_status() === PHP_SESSION_NONE) session_start();
                                 if(isset($_SESSION['loginSuccess']) && ($_SESSION['role'] === "admin")) { 
@@ -106,6 +111,10 @@
                                     <button class="btn btn-outline-primary" type="submit">Recherche</button>
                                 </form>
                             </li>
+                            <?php  
+                                if(session_status() === PHP_SESSION_NONE) session_start();
+                                if(isset($_SESSION['loginSuccess']) && ($_SESSION['role'] === "client")) { 
+                            ?>
                             <li class="nav-item me-3 me-lg-3">
                                 <button class="nav-link text-dark position-relative" type="button" title="Consulter vos messages" id="liveToastBtn" href="#"><i class="fa-solid fa-envelope fa-lg"></i> 
                                     Messages
@@ -144,6 +153,7 @@
                                     });
                                 </script>
                             </li>
+                            <?php } ?>
                             <li class="nav-item dropdown me-3 me-lg-3">
                                 <a class="nav-link dropdown-toggle text-dark" title="Consulter votre profile" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-user mx-1"></i> Profile 

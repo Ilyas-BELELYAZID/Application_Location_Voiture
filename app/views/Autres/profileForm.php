@@ -41,7 +41,15 @@
                                         } 
                                     ?>
                                     </h6>
-                                    <p class="proile-rating">LOUER : <span class="badge text-bg-secondary"><?php if (!empty($res)) { echo count($res); } else {echo "0";} ?></span> fois</p>
+                                    <?php  
+                                        if(session_status() === PHP_SESSION_NONE) session_start();
+                                        if(isset($_SESSION['loginSuccess']) && ($_SESSION['role'] === "client")) { 
+                                    ?>
+                                    <p class="proile-rating">LOUER : <span class="badge text-bg-secondary"><?php if (!empty($res)) { echo count($res); } else {echo "0";} ?></span> fois</p>     
+                                    <?php
+                                        }
+                                    ?>
+                            <p class="proile-rating"><br></p>
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Mes informations</a>

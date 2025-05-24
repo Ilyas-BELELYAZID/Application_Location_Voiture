@@ -245,11 +245,11 @@
                   </div>
                   <div class="form-group col-md-3">
                     <label for="cf-3">Date du voyage</label>
-                    <input type="text" id="cf-3" name="dateRetrait" placeholder="Votre date de retrait" class="form-control datepicker px-3" required>
+                    <input type="date" id="cf-3" name="dateRetrait" placeholder="Votre date de retrait" class="form-control px-3" required>
                   </div>
                   <div class="form-group col-md-3">
                     <label for="cf-4">Date de retour</label>
-                    <input type="text" id="cf-4" name="dateDepot" placeholder="Votre date de voyage" class="form-control datepicker px-3" required>
+                    <input type="date" id="cf-4" name="dateDepot" placeholder="Votre date de voyage" class="form-control px-3" required>
                   </div>
                 </div><br>
                 <div class="row">

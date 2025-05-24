@@ -209,13 +209,15 @@ class eLocationController extends Controller {
             $dateDepot = $_POST['dateDepot'];
             $id = $_SESSION['loginSuccess'];
             $idVoiture = $_GET['voiture'];
+            $today = date('Y-m-d');
 
             $locationModel = $this->model("locationModel");
+            $voitureModel = $this->model("voitureModel");
 
-            if(isset($idVoiture) && isset($adresseRetrait) && isset($adresseDepot) && isset($dateRetrait) && isset($dateDepot)) {
-                $voitureModel = $this->model("voitureModel");
-                $res = $voitureModel->getAll();
-                $res1 = $voitureModel->getById($idVoiture);
+            $res = $voitureModel->getAll();
+            $res1 = $voitureModel->getById($idVoiture);
+
+            if(isset($idVoiture) && isset($adresseRetrait) && isset($adresseDepot) && isset($dateRetrait) && isset($dateDepot) && ($dateRetrait > $today) && ($dateDepot > $today)) {
                 $valid = $locationModel->addLocation($idVoiture, $id, $dateRetrait, $dateDepot, $adresseRetrait, $adresseDepot);
                 if($valid) {
                     $nbVoitures = $res1['nbVoitures'];
@@ -225,6 +227,9 @@ class eLocationController extends Controller {
                 else {
                     $this->view("eLocation/indexForm", ['error' => "Il y a eu une erreur lors de louer la voiture!!", 'res' => $res]);
                 }
+            }
+            else {
+                $this->view("eLocation/indexForm", ['error' => "Les dates doivent étre corrects", 'res' => $res]);
             }
         }
         else $this->view("eLocation/indexForm");
